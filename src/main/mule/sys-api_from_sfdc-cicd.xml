@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="c922238f-e537-4a67-b857-daca662eaee9" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<flow name="sys-api_from_sfdc-cicdFlow" doc:id="1fa27949-ef14-4637-857c-b739391e1561" >
+		<http:listener doc:name="Listener" doc:id="816b6d8d-a1c0-41d8-bf29-f3724411f56c" config-ref="HTTP_Listener_config" path="/cicd"/>
+		<logger level="INFO" doc:name="Logger" doc:id="6fdd35b1-afee-49f2-8458-3ddf34dd7d9e" message="request to retrieve data #[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="0e824aba-a3d7-45b4-a609-95428f623718" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"account id":"12345 ",
+	"account name":"google ",
+	"account date": now() as String
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="7ebf5511-74b1-435a-9f55-3e3e44c889c4" message="Response == #[payload]"/>
+	</flow>
+</mule>
