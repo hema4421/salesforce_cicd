@@ -29,6 +29,17 @@
 				<artifactId>mule-maven-plugin</artifactId>
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
+				<configuration>
+				<cloudHubDeployment>
+				<username>hema_new1</username>
+				<password>Hemala03</password>
+				<environment>Sandbox</environment>
+				<worker>1</worker>
+				<workerType>Micro</workerType>
+				<applicationName>sfdc_build</applicationName>
+				<muleVersion>4.3.0</muleVersion>
+				</cloudHubDeployment>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
