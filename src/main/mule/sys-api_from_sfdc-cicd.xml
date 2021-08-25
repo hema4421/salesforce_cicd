@@ -18,7 +18,7 @@ output application/json
 ---
 {
 	"account id":"12345 ",
-	"account name":"face book ",
+	"account name":"face",
 	"account date": now() as String
 }]]></ee:set-payload>
 			</ee:message>
